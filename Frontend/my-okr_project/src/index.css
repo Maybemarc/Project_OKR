@@ -54,6 +54,105 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+
+
+
+/*//////////////*/
+
+.okr-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.okr-title {
+  font-size: 2rem;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.okr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.okr-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.okr-card:hover {
+  transform: translateY(-5px);
+}
+
+.okr-progress {
+  margin: 16px 0;
+}
+
+.okr-bar {
+  width: 100%;
+  background-color: #eee;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 8px;
+  margin-top: 6px;
+}
+
+.okr-bar-fill {
+  background-color: #2196f3;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.okr-kr-list {
+  margin: 12px 0;
+}
+
+.okr-kr {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+.kr-name {
+  font-weight: 500;
+}
+
+.okr-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.okr-buttons button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  transition: background-color 0.2s;
+}
+
+.okr-buttons button:hover {
+  background-color: #ddd;
+}
+
+.okr-buttons .danger {
+  background-color: #ff5252;
+  color: white;
+}
+
+.okr-buttons .danger:hover {
+  background-color: #d32f2f;
+}
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

@@ -64,3 +64,39 @@ export const deleteOKR = async (req, res) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
+export const getOKRByid = async (req, res) => {
+  try {
+    const okr = await OKR.findById(req.params.id).populate(
+      "assignedTo",
+      "name email"
+    );
+    if (!okr)
+      return res.status(404).json({ success: false, message: "OKR not found" });
+
+    res.status(200).json({ success: true, okr });
+  } catch (error) {
+    console.log(`Error in Gettin an OKR:`, error);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+export const updateOKR = async (req, res) => {
+  try {
+    const { objective, keyResults,assignedTo } = req.body;
+    const okr = await OKR.findById(req.params.id);
+    if (!okr)
+      return res.status(404).json({ success: false, message: "OKR not found" });
+    okr.objective = objective;
+    okr.keyResults = keyResults;
+    okr.assignedTo = assignedTo;
+    const total = keyResults.reduce((sum, kr) => sum + kr.progress, 0);
+    okr.progress = Math.round(total / keyResults.length);
+
+    await okr.save();
+    res.status(200).json({ success: true, message: "OKR updated", okr });
+  } catch (error) {
+    console.log(`Error in Updating OKR:`, error);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};

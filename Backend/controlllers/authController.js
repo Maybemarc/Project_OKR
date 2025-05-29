@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const registerUSer = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password,teamId} = req.body;
 
   try {
     const exist = await User.findOne({ email });
@@ -21,6 +21,7 @@ export const registerUSer = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      teamId
     });
 
     await newUser.save();
@@ -78,3 +79,13 @@ export const logoutUser = async (req, res) => {
   res.clearCookie("token");
   res.status(200).json({ message: "Logged out successfully" });
 };
+
+export const getAllUsers = async(req,res) => {
+  try {
+    const users = await User.find().select("-password")
+    res.status(200).json({success:true, users});
+  } catch (error) {
+        console.log(`Error in Getting All Users :`, error);
+    res.status(500).json({success:false, message: "Server error" });
+  }
+}
