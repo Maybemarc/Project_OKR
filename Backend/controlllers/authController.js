@@ -82,7 +82,7 @@ export const logoutUser = async (req, res) => {
 
 export const getAllUsers = async(req,res) => {
   try {
-    const users = await User.find().select("-password")
+    const users = await User.find().select("-password").populate("teamId", "name");
     res.status(200).json({success:true, users});
   } catch (error) {
         console.log(`Error in Getting All Users :`, error);

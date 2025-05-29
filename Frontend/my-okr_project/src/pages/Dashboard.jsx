@@ -101,15 +101,21 @@ const Dashboard = () => {
       </Box>
 
       <Box sx={{ display: 'flex', gap: 2, mt: 4 }}>
+        <Link to="/organization" >
         <Button variant="contained" color="primary" onClick={() => toast('Redirect to Create Org')}>
           + Create Organization
         </Button>
+        </Link>
+        <Link to="/department" >
         <Button variant="contained" onClick={() => toast('Redirect to Create Dept')}>
           + Create Department
         </Button>
+        </Link>
+        <Link to="/teams" >
         <Button variant="contained" onClick={() => toast('Redirect to Create Team')}>
           + Create Team
         </Button>
+        </Link>
         <Link to="/CreateOKR" >
         <Button variant="outlined" onClick={() => toast('Redirect to Create OKR')}>
           + Create OKR

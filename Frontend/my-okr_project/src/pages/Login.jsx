@@ -1,17 +1,13 @@
 import { useState } from "react";
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Container,
-} from "@mui/material";
+import { TextField, Button, Box, Typography, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
+  const { fetchUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -27,13 +23,15 @@ const Login = () => {
         password,
       });
       console.log(res.data);
-
-        Cookies.set("token", res.data.token, { expires: 365 });
+      Cookies.set("token", res.data.token, { expires: 365 });
+      await fetchUser()
+      toast.success("Login successful! 🎉");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
       
-       toast.success('Login successful! 🎉');
-      navigate("/");
     } catch (err) {
-      const msg = err.response?.data?.message || 'Login failed';
+      const msg = err.response?.data?.message || "Login failed";
       toast.error(` ${msg}`);
     }
   };

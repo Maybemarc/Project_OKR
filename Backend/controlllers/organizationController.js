@@ -47,6 +47,16 @@ export const createDepartment = async (req, res) => {
   }
 };
 
+export const getAllDepartment = async (req, res) => {
+  try {
+    const department = await Department.find().populate("organizationId", "name");
+    res.status(200).json({ success: true, department });
+  } catch (error) {
+    console.log(`Error in Getting all Department:`, error);
+    res.status(500).json({ message: "Failed to fetch teams" });
+  }
+};
+
 export const createTeam = async (req, res) => {
   const { name, departmentId } = req.body;
   try {
@@ -60,12 +70,12 @@ export const createTeam = async (req, res) => {
   }
 };
 
-export const getAllTeams = async(req,res) => {
-    try {
-    const teams = await Team.find().populate('departmentId');
-    res.status(200).json({success:true, team:teams});
+export const getAllTeams = async (req, res) => {
+  try {
+    const teams = await Team.find().populate("departmentId");
+    res.status(200).json({ success: true, team: teams });
   } catch (err) {
-        console.log(`Error in Getting all Teams:`, error);
-    res.status(500).json({ message: 'Failed to fetch teams' });
+    console.log(`Error in Getting all Teams:`, error);
+    res.status(500).json({ message: "Failed to fetch teams" });
   }
-}
+};
