@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import User from "../models/User.js";
 dotenv.config();
 
-let user;
 export const verifyToken = async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
@@ -13,8 +12,7 @@ export const verifyToken = async (req, res, next) => {
   try {
     const decode = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decode;
-    user = await User.findById(req.user.id);
-
+    req.userData = await User.findById(req.user.id);
     next();
   } catch (error) {
     console.log(`Error in verifyToken :`, error);
@@ -23,7 +21,7 @@ export const verifyToken = async (req, res, next) => {
 };
 
 export const isAdmin = (req, res, next) => {
-  if (user.role !== "admin") {
+  if (req.userData.role !== "admin") {
     return res.status(403).json({ message: "Access denied. Admins only." });
   }
   next();

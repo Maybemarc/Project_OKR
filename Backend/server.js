@@ -29,10 +29,10 @@ app.use(
   })
 );
 
-// app.use("/api/auth",authRoutes)
-// app.use("/api/org",orgRoutes)
-// app.use("/api/okrs",okrRoutes)
-// app.use("/api/admin",adminRoutes)
+app.use("/api/auth",authRoutes)
+app.use("/api/org",orgRoutes)
+app.use("/api/okrs",okrRoutes)
+app.use("/api/admin",adminRoutes)
 
 app.get("/",(req,res)=> {
   res.send({message:"hello"})
