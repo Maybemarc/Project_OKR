@@ -13,6 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = [
+  "https://project-okr.vercel.app"
   "http://localhost:5173"
 ];
 app.use(express.json());
