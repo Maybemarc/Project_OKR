@@ -21,14 +21,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      console.log("CORS origin:", origin);
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: allowedOrigins,
     credentials: true, 
     methods: ["GET", "POST", "PUT", "DELETE"], 
     allowedHeaders: ["Content-Type", "Authorization"], 
