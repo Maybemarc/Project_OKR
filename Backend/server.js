@@ -16,6 +16,21 @@ app.use(cors({ origin: 'https://project-okr.vercel.app', credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, 
+    methods: ["GET", "POST", "PUT", "DELETE"], 
+    allowedHeaders: ["Content-Type", "Authorization"], 
+  })
+);
+
 app.use("/api/auth",authRoutes)
 app.use("/api/org",orgRoutes)
 app.use("/api/okrs",okrRoutes)
