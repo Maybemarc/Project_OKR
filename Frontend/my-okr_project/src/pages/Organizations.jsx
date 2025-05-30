@@ -85,9 +85,6 @@ const Organizations = () => {
             <Card>
               <CardContent>
                 <Typography variant="h6">{org.name}</Typography>
-                <Typography variant="body2">
-                  ID: {org._id}
-                </Typography>
               </CardContent>
             </Card>
           </Grid>

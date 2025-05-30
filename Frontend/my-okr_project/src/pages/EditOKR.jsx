@@ -55,18 +55,18 @@ const EditOKR = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${API_URL}/okrs/${id}`, { objective, keyResults, assignedTo }, {
+      await axios.put(`${API_URL}/okrs/update/${id}`, { objective, keyResults, assignedTo }, {
           withCredentials: true,
         });
       toast.success('OKR updated successfully!');
-      navigate('/okrs');
+      navigate('/secure/okrs');
     } catch {
       toast.error('Failed to update OKR');
     }
   };
 
   return (
-    <Container maxWidth="md" className="edit-okr">
+    <Container maxWidth="md" className="edit-okr" >
       <Typography variant="h4" gutterBottom>
         ✏️ Edit OKR
       </Typography>

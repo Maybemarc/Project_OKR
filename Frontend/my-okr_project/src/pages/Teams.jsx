@@ -25,10 +25,8 @@ const Teams = () => {
     try {
       const teamRes = await axios.get(`${API_URL}/org/teams`, { withCredentials: true });
       const deptRes = await axios.get(`${API_URL}/org/departments`, { withCredentials: true });
-      console.log(teamRes.data);
-      console.log(deptRes);
-      setTeams(teamRes.data.team || teamRes.data); // handles both {team:[]} and []
-      setDepartments(deptRes.data.department || deptRes.data); // same
+      setTeams(teamRes.data.team );
+      setDepartments(deptRes.data.department || deptRes.data); 
     } catch {
       toast.error("Failed to load teams or departments");
     }
@@ -47,7 +45,7 @@ const Teams = () => {
       await axios.post(`${API_URL}/org/team`, form,{ withCredentials: true });
       toast.success("Team created!");
       setForm({ name: "", departmentId: "" });
-      fetchData(); // refresh teams list
+      fetchData(); 
     } catch (err) {
       toast.error(err.response?.data?.message || "Error creating team");
     }
@@ -114,9 +112,6 @@ const Teams = () => {
                 <Typography variant="h6">{team.name}</Typography>
                 <Typography variant="body2">
                   Department: {team.departmentId?.name || "N/A"}
-                </Typography>
-                <Typography variant="body2">
-                  Org ID: {team.departmentId?.organizationId || "N/A"}
                 </Typography>
               </CardContent>
             </Card>

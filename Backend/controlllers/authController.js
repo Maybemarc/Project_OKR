@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const registerUSer = async (req, res) => {
-  const { name, email, password,teamId} = req.body;
+  const { name, email, password,role,teamId} = req.body;
 
   try {
     const exist = await User.findOne({ email });
@@ -21,6 +21,7 @@ export const registerUSer = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      role,
       teamId
     });
 

@@ -1,6 +1,7 @@
 import Organization from "../models/Organization.js";
 import Department from "../models/Department.js";
 import Team from "../models/Team.js";
+import User from '../models/User.js';
 
 export const createOrganization = async (req, res) => {
   const { name } = req.body;
@@ -77,5 +78,17 @@ export const getAllTeams = async (req, res) => {
   } catch (err) {
     console.log(`Error in Getting all Teams:`, error);
     res.status(500).json({ message: "Failed to fetch teams" });
+  }
+};
+
+export const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select('-password');
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };

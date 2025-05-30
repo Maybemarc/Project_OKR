@@ -3,42 +3,45 @@ import { Toaster } from "react-hot-toast";
 import "./App.css";
 import Login from "./pages/Login";
 import RegisterPage from "./pages/Register";
-import DashboardPage from "./pages/Dashboard";
-import CreateOKR from "./pages/CreateOKR";
-import OKRs from "./pages/OKRs";
-import EditOKR from "./pages/EditOKR";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Notfound from "./pages/Notfound";
+import SecurePages from "./pages/Secure";
+import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar";
-import Teams from "./pages/Teams";
-import Departments from "./pages/Departments";
-import Organizations from "./pages/Organizations"
+import RedirectRoute from "./components/Redirect";
 
 function App() {
   return (
     <div>
-      {/* <ProtectedRoute>
-        <Navbar />
-      </ProtectedRoute> */}
+      <Navbar />
       <Routes>
         <Route
           path="/"
           element={
-            <ProtectedRoute>
-              <DashboardPage />
-            </ProtectedRoute>
+            <RedirectRoute>
+              <HomePage />
+            </RedirectRoute>
           }
         />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/CreateOKR" element={<CreateOKR />} />
-        <Route path="/OKRs" element={<OKRs />} />
-        <Route path="/EditOkR/:id" element={<EditOKR />} />
-        <Route path="/teams" element={<Teams />} />
-        <Route path="/department" element={<Departments />} />
-        <Route path="/organization" element={<Organizations />} />
+        <Route
+          path="/register"
+          element={
+            <RedirectRoute>
+              <RegisterPage />
+            </RedirectRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RedirectRoute>
+              <Login />
+            </RedirectRoute>
+          }
+        />
+        <Route path="/secure/*" element={<SecurePages />} />
+        <Route path="*" element={<Notfound />} />
       </Routes>
       <Toaster />
-      <h2>React</h2>
     </div>
   );
 }

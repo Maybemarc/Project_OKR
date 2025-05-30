@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const CreateOKR = () => {
   const [objective, setObjective] = useState('');
@@ -12,17 +13,17 @@ const CreateOKR = () => {
   const [users, setUsers] = useState([]);
   const [assignedTo, setAssignedTo] = useState([]);
   const [teams, setTeams] = useState([]);
+  const navigate = useNavigate()
 
    const API_URL = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     const fetchTeamsAndUsers = async () => {
       try {
-        const teamRes = await axios.get(`${API_URL}/org/teams`, { withCredentials: true }); // Make this route return all teams
+        const teamRes = await axios.get(`${API_URL}/org/teams`, { withCredentials: true }); 
         console.log(teamRes.data)
         setTeams(teamRes.data.team);
 
-        const userRes = await axios.get(`${API_URL}/auth/users`, { withCredentials: true }); // Make this route return all users
-        setUsers(userRes.data.users);
+        const userRes = await axios.get(`${API_URL}/auth/users`, { withCredentials: true }); 
       } catch (err) {
         toast.error('Failed to fetch teams or users');
       }
@@ -51,6 +52,7 @@ const CreateOKR = () => {
       setKeyResults([{ name: '', progress: 0 }]);
       setAssignedTo([]);
       setTeamId('');
+      navigate("/secure/okrs")
     } catch (err) {
       toast.error('Error creating OKR');
     }

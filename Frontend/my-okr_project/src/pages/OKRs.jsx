@@ -67,17 +67,21 @@ const OKRs = () => {
               </div>
 
               <div className="okr-buttons">
-                <Link to={`/EditOKR/${okr._id}`} >
-                <button >✏️ Edit</button>
+                <Link to={`/secure/EditOKR/${okr._id}`}>
+                  <button>✏️ Edit</button>
                 </Link>
                 <button
                   className="danger"
                   onClick={async () => {
                     try {
-                      await axios.delete(`/okrs/${okr._id}`);
+                      await axios.delete(`${API_URL}/okrs/${okr._id}`, {
+                        withCredentials: true,
+                      });
                       toast.success("OKR deleted");
                       setOkrs(okrs.filter((o) => o._id !== okr._id));
-                    } catch {
+                    } catch(error) {
+                      console.log(`Error in deleting an okr: `, error);
+
                       toast.error("Delete failed");
                     }
                   }}

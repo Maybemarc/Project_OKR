@@ -6,6 +6,7 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js"
 import orgRoutes from "./routes/orgRoutes.js"
 import okrRoutes from "./routes/okrRoutes.js"
+import adminRoutes from "./routes/adminRoutes.js"
 
 dotenv.config();
 const app = express();
@@ -18,7 +19,7 @@ app.use(cookieParser());
 app.use("/api/auth",authRoutes)
 app.use("/api/org",orgRoutes)
 app.use("/api/okrs",okrRoutes)
-
+app.use("/api/admin",adminRoutes)
 
 connectDB().then(() => {
   app.listen(PORT, () => {

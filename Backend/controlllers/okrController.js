@@ -100,3 +100,15 @@ export const updateOKR = async (req, res) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
+
+export const getOKRsByUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const okrs = await OKR.find({ assignedTo: userId }).populate("assignedTo", "name");
+    res.status(200).json({ success: true, okrs });
+  } catch (err) {
+    console.log("Error fetching user OKRs:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};

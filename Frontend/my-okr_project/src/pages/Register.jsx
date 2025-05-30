@@ -11,14 +11,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const roles = ["employee", "manager", "admin"]; // optional
+const roles = ["employee", "manager", "admin"]; 
 
 const Register = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
-    role: "employee",
+    role: "",
     teamId: "",
   });
   const [teams, setTeams] = useState([]);
@@ -55,7 +55,7 @@ const Register = () => {
     try {
       const res = await axios.post(`${API_URL}/auth`, form);
       toast.success("Account created successfully 🎉");
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       toast.error(err.response?.data?.message || "Registration failed");
     }
@@ -125,7 +125,7 @@ const Register = () => {
             ))}
           </TextField>
           <TextField
-            label="Team"
+            label="Industry"
             name="teamId"
             select
             fullWidth
